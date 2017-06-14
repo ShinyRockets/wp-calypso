@@ -9,6 +9,9 @@ import head from 'lodash/head';
 import values from 'lodash/values';
 import mapValues from 'lodash/mapValues';
 import groupBy from 'lodash/groupBy';
+import toArray from 'lodash/toArray';
+import some from 'lodash/some';
+import { translate } from 'i18n-calypso';
 
 /**
  * Internal dependencies
@@ -30,6 +33,11 @@ import { getSiteSlug } from 'state/sites/selectors';
 import MediaLibraryHeader from './header';
 import MediaLibraryScaleHeader from './empty-header';
 import MediaLibraryList from './list';
+import { requestKeyringConnections } from 'state/sharing/keyring/actions';
+import {
+	isKeyringConnectionsFetching,
+	getKeyringConnections,
+} from 'state/sharing/keyring/selectors';
 
 const MediaLibraryContent = React.createClass( {
 	propTypes: {
@@ -53,6 +61,13 @@ const MediaLibraryContent = React.createClass( {
 			onAddMedia: noop,
 			source: '',
 		};
+	},
+
+	componentWillMount: function() {
+		if ( ! this.props.isRequesting && this.props.source !== '' && this.props.connectedServices.length === 0 ) {
+			// Are we connected to anything yet?
+			this.props.requestKeyringConnections();
+		}
 	},
 
 	renderErrors: function() {
@@ -168,6 +183,20 @@ const MediaLibraryContent = React.createClass( {
 		analytics.tracks.recordEvent( tracksEvent, tracksData );
 	},
 
+	renderExternalMedia() {
+		if ( this.props.isRequesting ) {
+			return (
+				<MediaLibraryList key="list-loading" filterRequiresUpgrade={ this.props.filterRequiresUpgrade } />
+			);
+		}
+
+		return (
+			<div>
+				<p>{ translate( 'You will need to connect your account to view your media. Go to the Sharing tab.' ) }</p>
+			</div>
+		);
+	},
+
 	getThumbnailType() {
 		if ( this.props.source !== '' ) {
 			return MEDIA_IMAGE_THUMBNAIL;
@@ -182,7 +211,11 @@ const MediaLibraryContent = React.createClass( {
 
 	renderMediaList: function() {
 		if ( ! this.props.site ) {
-			return <MediaLibraryList key="list-loading" />;
+			return <MediaLibraryList key="list-loading" filterRequiresUpgrade={ this.props.filterRequiresUpgrade } />;
+		}
+
+		if ( this.props.source !== '' && ! some( this.props.connectedServices, item => item.service === this.props.source ) ) {
+			return this.renderExternalMedia();
 		}
 
 		return (
@@ -247,6 +280,10 @@ const MediaLibraryContent = React.createClass( {
 
 export default connect( ( state, ownProps ) => {
 	return {
-		siteSlug: ownProps.site ? getSiteSlug( state, ownProps.site.ID ) : ''
+		siteSlug: ownProps.site ? getSiteSlug( state, ownProps.site.ID ) : '',
+		connectedServices: toArray( getKeyringConnections( state ) ).filter( item => item.type === 'other' && item.status === 'ok' ),
+		isRequesting: isKeyringConnectionsFetching( state ),
 	};
-}, null, null, { pure: false } )( MediaLibraryContent );
+}, {
+	requestKeyringConnections,
+}, null, { pure: false } )( MediaLibraryContent );
