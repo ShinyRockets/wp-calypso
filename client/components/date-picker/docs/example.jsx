@@ -98,7 +98,7 @@ class DatePickerExample extends Component {
 	};
 
 	selectDay = ( date, modifiers ) => {
-		this.setState( { selectedDay: date } );
+		this.setState( { selectedDay: date.toDate() } );
 
 		if ( date ) {
 			console.log( date.toDate(), modifiers );
@@ -109,6 +109,7 @@ class DatePickerExample extends Component {
 		return (
 			<Card style={ { width: '300px', margin: 0 } }>
 				<DatePicker
+					disabledDays={ [ { before: new Date() } ] }
 					events={ this.state.events }
 					onSelectDay={ this.selectDay }
 					selectedDay={ this.state.selectedDay } />
