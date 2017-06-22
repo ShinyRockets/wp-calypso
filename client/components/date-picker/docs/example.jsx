@@ -23,7 +23,7 @@ class DatePickerExample extends Component {
 
 			{
 				title: 'Social Media - Facebook',
-				date: new Date(),
+				date: new Date( +new Date() + 60 * 60 * 24 * 1000 ),
 				socialIcon: 'facebook',
 			},
 
@@ -48,7 +48,7 @@ class DatePickerExample extends Component {
 
 			{
 				title: 'Social Media - Tumblr',
-				date: new Date(),
+				date: new Date( +new Date() + 60 * 60 * 24 * 1000 ),
 				socialIcon: 'tumblr',
 			},
 
@@ -87,18 +87,24 @@ class DatePickerExample extends Component {
 			{
 				title: 'Tomorrow is tomorrow',
 				date: new Date( +new Date() + 60 * 60 * 24 * 1000 ),
-				type: 'future-event',
+				type: 'future',
 			},
 			{
 				title: 'Yesterday',
 				date: new Date( +new Date() - 60 * 60 * 24 * 1000 ),
-				type: 'past-event',
+				type: 'past',
+			},
+			{
+				title: 'Retro birthday',
+				date: new Date( '1977-07-18' ),
+				type: 'birthday',
+				icon: 'offline',
 			}
 		]
 	};
 
 	selectDay = ( date, modifiers ) => {
-		this.setState( { selectedDay: date.toDate() } );
+		this.setState( { selectedDay: date } );
 
 		if ( date ) {
 			console.log( date.toDate(), modifiers );
