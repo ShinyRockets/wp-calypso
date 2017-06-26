@@ -20,6 +20,7 @@ class ActivityLogDay extends Component {
 		requestRestore: PropTypes.func.isRequired,
 		siteId: PropTypes.number,
 		timestamp: PropTypes.number.isRequired,
+		siteOffset: PropTypes.func.isRequired,
 	};
 
 	static defaultProps = {
@@ -73,11 +74,12 @@ class ActivityLogDay extends Component {
 			moment,
 			timestamp,
 			translate,
+			siteOffset,
 		} = this.props;
 
 		return (
 			<div>
-				<div className="activity-log-day__day">{ moment( timestamp ).format( 'LL' ) }</div>
+				<div className="activity-log-day__day">{ siteOffset( moment( timestamp ) ).format( 'LL' ) }</div>
 				<div className="activity-log-day__events">{
 					translate( '%d Event', '%d Events', {
 						args: logs.length,
@@ -93,6 +95,7 @@ class ActivityLogDay extends Component {
 			allowRestore,
 			logs,
 			requestRestore,
+			siteOffset,
 		} = this.props;
 
 		return (
@@ -107,7 +110,6 @@ class ActivityLogDay extends Component {
 							key={ index }
 							allowRestore={ allowRestore }
 							requestRestore={ requestRestore }
-
 							title={ log.name }
 							subTitle={ log.subTitle }
 							description={ log.description }
@@ -118,6 +120,7 @@ class ActivityLogDay extends Component {
 							actionText={ log.actionText }
 							status={ log.status }
 							className={ log.className }
+							siteOffset={ siteOffset }
 						/>
 					) ) }
 				</FoldableCard>

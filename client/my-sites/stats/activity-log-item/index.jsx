@@ -28,7 +28,8 @@ class ActivityLogItem extends Component {
 		status: PropTypes.oneOf( [ 'is-success', 'is-warning', 'is-error', 'is-info' ] ),
 		user: PropTypes.object,
 		actionText: PropTypes.string,
-		description: PropTypes.string
+		description: PropTypes.string,
+		siteOffset: PropTypes.func.isRequired,
 	};
 
 	static defaultProps = {
@@ -48,12 +49,13 @@ class ActivityLogItem extends Component {
 	getTime() {
 		const {
 			moment,
-			timestamp
+			timestamp,
+			siteOffset,
 		} = this.props;
 
 		return (
 			<div className="activity-log-item__time">
-				{ moment( timestamp ).format( 'LT' ) }
+				{ siteOffset( moment( timestamp ) ).format( 'LT' ) }
 			</div>
 		);
 	}
