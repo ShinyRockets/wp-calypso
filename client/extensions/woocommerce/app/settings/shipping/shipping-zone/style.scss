@@ -277,7 +277,7 @@
 
 &.shipping-zone__location-dialog {
 	max-width: 600px;
-	max-height: 80%;
+	max-height: 85%;
 	display: flex;
 	flex-direction: column;
 
@@ -298,14 +298,19 @@
 
 .shipping-zone__location-dialog-list-item {
 	list-style: none;
-	padding: 1px 0;
+	padding: 2px 4px;
+	margin: 1px 0;
 	cursor: pointer;
+}
+
+.shipping-zone__location-dialog-list-item:hover {
+	background: lighten( $gray, 30% );
 }
 
 .shipping-zone__location-dialog-list-item-checkbox {
 	margin-right: 8px;
 
 	&.is-country {
-		margin-right: 24px;
+		margin-left: 12px;
 	}
 }

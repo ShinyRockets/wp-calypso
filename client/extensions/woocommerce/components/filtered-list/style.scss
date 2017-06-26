@@ -1,10 +1,13 @@
 .filtered-list__container {
 	border: 1px solid lighten( $gray, 20% );
 	border-top: none;
-	padding: 0 14px;
-	width: calc( 100% - 30px );
-	height: 200px;
+	padding: 8px;
+	height: 190px;
 	overflow-y: scroll;
+}
+
+.filtered-list__location {
+	max-width: 440px;
 }
 
 .filtered-list__list {

@@ -27,7 +27,7 @@ class FilteredList extends Component {
 		) ) : items;
 
 		return (
-			<div>
+			<div className="filtered-list__location">
 				<FormTextInput
 					value={ this.state.filter }
 					onChange={ onFilterChange }
