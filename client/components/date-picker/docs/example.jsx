@@ -2,6 +2,7 @@
  * External dependencies
  */
 import React, { Component } from 'react';
+import { localize } from 'i18n-calypso';
 
 /**
  * Internal dependencies
@@ -103,7 +104,8 @@ const events = [
  */
 class DatePickerExample extends Component {
 	state = {
-		dayEvents: [],
+		eventsByDay: [],
+		selectedDay: null,
 		showTooltip: false,
 	};
 
@@ -111,13 +113,13 @@ class DatePickerExample extends Component {
 		this.setState( { selectedDay: date } );
 
 		if ( date ) {
-			console.log( date.toDate(), modifiers );
+			console.log( date.toDate(), modifiers ); // eslint-disable-line no-console
 		}
 	};
 
-	handleDayMouseEnter = ( date, modifiers, event, dayEvents ) => {
+	handleDayMouseEnter = ( date, modifiers, event, eventsByDay ) => {
 		this.setState( {
-			dayEvents,
+			eventsByDay,
 			context: event.target,
 			showTooltip: true,
 		} );
@@ -125,13 +127,22 @@ class DatePickerExample extends Component {
 
 	handleDayMouseLeave = () => {
 		this.setState( {
-			dayEvents: [],
+			eventsByDay: [],
 			context: null,
 			showTooltip: false,
 		} );
 	};
 
 	render() {
+		// custom tooltip title
+		const tooltipTitle = this.props.translate(
+			'%d event',
+			'%d events', {
+				count: this.state.eventsByDay.length,
+				args: this.state.eventsByDay.length,
+			}
+		);
+
 		return (
 			<Card style={ { width: '300px', margin: 0 } }>
 				<DatePicker
@@ -143,16 +154,20 @@ class DatePickerExample extends Component {
 					selectedDay={ this.state.selectedDay } />
 
 				<EventsTooltip
-					events={ this.state.dayEvents }
+					events={ this.state.eventsByDay }
 					context={ this.state.context }
 					isVisible={ this.state.showTooltip }
+					title={ tooltipTitle }
+					maxEvents={ 5 }
 				/>
 			</Card>
 		);
 	}
 }
 
-DatePickerExample.displayName = 'DatePicker';
+const localizedDatePickerExample = localize( DatePickerExample );
 
-export default DatePickerExample;
+localizedDatePickerExample.displayName = 'DatePicker';
+
+export default localizedDatePickerExample;
 
