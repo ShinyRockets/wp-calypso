@@ -32,6 +32,8 @@ class CalendarButton extends Component {
 
 		onClose: PropTypes.func,
 		onDateChange: PropTypes.func,
+		onDayMouseEnter: PropTypes.func,
+		onDayMouseLeave: PropTypes.func,
 		onMonthChange: PropTypes.func,
 		onShow: PropTypes.func,
 	};
@@ -41,6 +43,8 @@ class CalendarButton extends Component {
 		type: 'button',
 		popoverPosition: 'bottom',
 		onDateChange: noop,
+		onDayMouseEnter: noop,
+		onDayMouseLeave: noop,
 	};
 
 	state = { showPopover: false };
@@ -84,6 +88,8 @@ class CalendarButton extends Component {
 			'siteId',
 			'onDateChange',
 			'onMonthChange',
+			'onDayMouseEnter',
+			'onDayMouseLeave',
 			'onShow',
 		] ) );
 
