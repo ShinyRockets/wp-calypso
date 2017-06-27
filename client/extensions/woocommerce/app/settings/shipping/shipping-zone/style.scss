@@ -289,6 +289,12 @@
 	.dialog__action-buttons {
 		overflow: visible;
 	}
+
+	.form-label,
+	.form-fieldset,
+	.shipping-zone__location-dialog-header {
+		color: $gray-dark;
+	}
 }
 
 .shipping-zone__location-dialog-header {
