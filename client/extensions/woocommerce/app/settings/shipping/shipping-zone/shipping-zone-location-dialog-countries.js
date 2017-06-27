@@ -54,6 +54,9 @@ const ShippingZoneLocationDialogCountries = ( { continentCountries, translate, a
 					disabled={ ! selected && disabled } />
 				{ isCountry ? <LocationFlag code={ code } /> : null }
 				{ decodeEntities( name ) }
+				{ disabled && (
+					<small>{ translate( '(An existing zone covers this location)' ) }</small>
+				)}
 			</li>
 		);
 	};

@@ -307,6 +307,11 @@
 	padding: 2px 4px;
 	margin: 1px 0;
 	cursor: pointer;
+
+	small {
+		color: $gray-text-min;
+		margin-left: 4px;
+	}
 }
 
 .shipping-zone__location-dialog-list-item:hover {
