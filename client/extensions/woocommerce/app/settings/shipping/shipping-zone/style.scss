@@ -342,6 +342,11 @@
 	margin-right: 8px;
 	margin-top: 3px;
 
+	& + span {
+		display: inline;
+		margin: 0;
+	}
+
 	&.is-country {
 		margin-left: 24px;
 	}
