@@ -115,7 +115,7 @@ class ActivityLogDay extends Component {
 							description={ log.description }
 							icon={ log.icon }
 							siteId={ this.props.siteId }
-							timestamp={ log.ts_site }
+							timestamp={ log.ts_utc }
 							user={ log.user }
 							actionText={ log.actionText }
 							status={ log.status }
