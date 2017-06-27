@@ -205,6 +205,14 @@ class ActivityLog extends Component {
 		return log;
 	}
 
+	/**
+	 * Creates a function that will offset a moment by the site
+	 * timezone or gmt offset. Use the resulting function wherever
+	 * log times need to be formatted for display to ensure all times
+	 * are displayed as site times.
+	 *
+	 * @returns {function} func that takes a moment and returns moment offset by site timezone or offset
+	 */
 	getSiteOffsetFunc() {
 		const { timezone, gmtOffset } = this.props;
 		return ( moment ) => {
