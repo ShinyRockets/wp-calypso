@@ -213,6 +213,7 @@ class ActivityLog extends Component {
 			failureReason,
 			percent,
 			status,
+			siteId,
 			siteTitle,
 			timestamp,
 		} = restoreProgress;
@@ -224,11 +225,13 @@ class ActivityLog extends Component {
 						errorCode={ errorCode }
 						failureReason={ failureReason }
 						requestRestore={ this.handleRequestRestore }
+						siteId={ siteId }
 						siteTitle={ siteTitle }
 						timestamp={ timestamp }
 					/>
 				) : (
 					<SuccessBanner
+						siteId={ siteId }
 						timestamp={ timestamp }
 					/>
 				)
