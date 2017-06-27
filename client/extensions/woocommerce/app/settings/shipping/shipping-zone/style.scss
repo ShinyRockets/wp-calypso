@@ -304,7 +304,7 @@
 
 .shipping-zone__location-dialog-list-item {
 	list-style: none;
-	padding: 2px 4px;
+	padding: 3px 6px;
 	margin: 1px 0;
 	cursor: pointer;
 
@@ -328,6 +328,10 @@
 			background: transparent;
 		}
 	}
+
+	.location-flag {
+		margin-bottom: 1px;
+	}
 }
 
 .shipping-zone__location-dialog-list-item:hover {
@@ -336,7 +340,7 @@
 
 .shipping-zone__location-dialog-list-item-checkbox {
 	margin-right: 8px;
-	margin-top: 4px;
+	margin-top: 3px;
 
 	&.is-country {
 		margin-left: 12px;
