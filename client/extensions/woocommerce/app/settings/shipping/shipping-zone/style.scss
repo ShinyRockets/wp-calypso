@@ -309,8 +309,24 @@
 	cursor: pointer;
 
 	small {
-		color: $gray-text-min;
 		margin-left: 4px;
+	}
+
+	&.is-disabled {
+		color: $gray-text-min;
+
+		span {
+			text-decoration: line-through;
+		}
+
+		img {
+			filter: grayscale(1);
+			opacity: .5;
+		}
+
+		&:hover {
+			background: transparent;
+		}
 	}
 }
 
@@ -320,6 +336,7 @@
 
 .shipping-zone__location-dialog-list-item-checkbox {
 	margin-right: 8px;
+	margin-top: 4px;
 
 	&.is-country {
 		margin-left: 12px;

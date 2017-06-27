@@ -45,15 +45,18 @@ const ShippingZoneLocationDialogCountries = ( { continentCountries, translate, a
 			{ 'is-country': isCountry }
 		);
 
+		const listItemClass = disabled
+			? 'shipping-zone__location-dialog-list-item is-disabled' : 'shipping-zone__location-dialog-list-item';
+
 		return (
-			<li key={ index } className="shipping-zone__location-dialog-list-item" onClick={ onToggle }>
+			<li key={ index } className={ listItemClass } onClick={ onToggle }>
 				<FormCheckbox
 					onChange={ onToggle }
 					className={ checkboxClass }
 					checked={ selected }
 					disabled={ disabled } />
 				{ isCountry ? <LocationFlag code={ code } /> : null }
-				{ decodeEntities( name ) }
+				<span>{ decodeEntities( name ) }</span>
 				{ disabled && (
 					<small>{ translate( '(An existing zone covers this location)' ) }</small>
 				) }
