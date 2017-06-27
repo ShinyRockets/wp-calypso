@@ -98,7 +98,7 @@ const ShippingZoneLocationDialogSettings = ( {
 
 		const onToggle = ( event ) => {
 			event.stopPropagation();
-			if ( ! selected && disabled ) {
+			if ( disabled ) {
 				return;
 			}
 			actions.toggleStateSelected( code, ! selected );
@@ -110,7 +110,7 @@ const ShippingZoneLocationDialogSettings = ( {
 					onChange={ onToggle }
 					className="shipping-zone__location-dialog-list-item-checkbox"
 					checked={ selected }
-					disabled={ ! selected && disabled } />
+					disabled={ disabled } />
 				{ decodeEntities( name ) }
 			</li>
 		);

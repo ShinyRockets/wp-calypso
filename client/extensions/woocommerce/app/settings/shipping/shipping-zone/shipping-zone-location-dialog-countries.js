@@ -31,7 +31,7 @@ const ShippingZoneLocationDialogCountries = ( { continentCountries, translate, a
 
 		const onToggle = ( event ) => {
 			event.stopPropagation();
-			if ( ! selected && disabled ) {
+			if ( disabled ) {
 				return;
 			}
 
@@ -51,12 +51,12 @@ const ShippingZoneLocationDialogCountries = ( { continentCountries, translate, a
 					onChange={ onToggle }
 					className={ checkboxClass }
 					checked={ selected }
-					disabled={ ! selected && disabled } />
+					disabled={ disabled } />
 				{ isCountry ? <LocationFlag code={ code } /> : null }
 				{ decodeEntities( name ) }
 				{ disabled && (
 					<small>{ translate( '(An existing zone covers this location)' ) }</small>
-				)}
+				) }
 			</li>
 		);
 	};

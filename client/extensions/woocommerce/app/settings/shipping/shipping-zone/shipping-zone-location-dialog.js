@@ -1,4 +1,3 @@
-/* eslint wpcalypso/i18n-ellipsis: 0 */
 /**
  * External dependencies
  */
