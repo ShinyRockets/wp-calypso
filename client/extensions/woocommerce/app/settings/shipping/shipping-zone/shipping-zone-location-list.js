@@ -28,7 +28,7 @@ const ShippingZoneLocationList = ( { siteId, loaded, translate, locations, actio
 				return translate( 'All countries' );
 			case 'country':
 				if ( location.postcodeFilter ) {
-					return translate( 'Specific postcodes' );
+					return translate( 'Specific postcodes: %s', { args: [ location.postcodeFilter ] } );
 				}
 
 				return translate( 'Whole country' );

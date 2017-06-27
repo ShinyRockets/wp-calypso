@@ -163,7 +163,7 @@
 
 	.shipping-zone__location-title {
 		font-size: 14px;
-		width: 80%;
+		width: 100%;
 
 		@include breakpoint( ">660px" ) {
 			width: 30%;
@@ -172,25 +172,12 @@
 
 	.shipping-zone__location-summary {
 		font-size: 14px;
-		width: 55%;
+		width: 70%;
 
 		@include breakpoint( "<660px" ) {
 			width: 100%;
 			order: 4;
 			padding-top: 0px;
-		}
-	}
-
-	.shipping-zone__location-actions {
-		width: 20%;
-		justify-content: flex-end;
-
-		.button {
-			flex-shrink: 0;
-		}
-
-		@include breakpoint( ">660px" ) {
-			width: 15%;
 		}
 	}
 }
