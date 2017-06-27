@@ -2,6 +2,7 @@
  * External dependencies
  */
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { localize } from 'i18n-calypso';
 
 /**
@@ -10,15 +11,22 @@ import { localize } from 'i18n-calypso';
 import Dialog from 'components/dialog';
 import ShippingZoneLocationDialogCountries from './shipping-zone-location-dialog-countries';
 import ShippingZoneLocationDialogSettings from './shipping-zone-location-dialog-settings';
+import { bindActionCreatorsWithSiteId } from 'woocommerce/lib/redux-utils';
+import {
+	closeEditLocations,
+	cancelEditLocations,
+} from 'woocommerce/state/ui/shipping/zones/locations/actions';
+import { isEditLocationsModalOpen } from 'woocommerce/state/ui/shipping/zones/locations/selectors';
 
-const ShippingZoneLocationDialog = ( { siteId, isVisible, translate, onChange } ) => {
+const ShippingZoneLocationDialog = ( { siteId, isVisible, translate, actions, onChange } ) => {
 	if ( ! isVisible ) {
 		return null;
 	}
 
-	const onCancel = () => {};
+	const onCancel = () => ( actions.cancelEditLocations() );
 	const onClose = () => {
 		onChange();
+		actions.closeEditLocations();
 	};
 
 	const buttons = [
@@ -46,4 +54,14 @@ ShippingZoneLocationDialog.propTypes = {
 	onChange: PropTypes.func.isRequired,
 };
 
-export default localize( ShippingZoneLocationDialog );
+export default connect(
+	( state ) => ( {
+		isVisible: isEditLocationsModalOpen( state ),
+	} ),
+	( dispatch, ownProps ) => ( {
+		actions: bindActionCreatorsWithSiteId( {
+			closeEditLocations,
+			cancelEditLocations,
+		}, dispatch, ownProps.siteId ),
+	} )
+)( localize( ShippingZoneLocationDialog ) );

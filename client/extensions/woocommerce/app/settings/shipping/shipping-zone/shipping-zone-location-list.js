@@ -19,8 +19,9 @@ import ShippingZoneLocationDialog from './shipping-zone-location-dialog';
 import { decodeEntities } from 'lib/formatting';
 import { bindActionCreatorsWithSiteId } from 'woocommerce/lib/redux-utils';
 import { getCurrentlyEditingShippingZoneLocationsList } from 'woocommerce/state/ui/shipping/zones/locations/selectors';
+import { openEditLocations } from 'woocommerce/state/ui/shipping/zones/locations/actions';
 
-const ShippingZoneLocationList = ( { siteId, loaded, translate, locations, onChange } ) => {
+const ShippingZoneLocationList = ( { siteId, loaded, translate, locations, actions, onChange } ) => {
 	const getLocationDescription = ( location ) => {
 		switch ( location.type ) {
 			case 'continent':
@@ -48,9 +49,6 @@ const ShippingZoneLocationList = ( { siteId, loaded, translate, locations, onCha
 						<span />
 						<span />
 					</ListItemField>
-					<ListItemField className="shipping-zone__location-actions">
-						<Button compact >{ translate( 'Edit' ) }</Button>
-					</ListItemField>
 				</ListItem>
 			);
 		}
@@ -64,9 +62,6 @@ const ShippingZoneLocationList = ( { siteId, loaded, translate, locations, onCha
 				<ListItemField className="shipping-zone__location-summary">
 					{ getLocationDescription( location ) }
 				</ListItemField>
-				<ListItemField className="shipping-zone__location-actions">
-					<Button compact >{ translate( 'Edit' ) }</Button>
-				</ListItemField>
 			</ListItem>
 		);
 	};
@@ -76,6 +71,7 @@ const ShippingZoneLocationList = ( { siteId, loaded, translate, locations, onCha
 			return;
 		}
 		onChange();
+		actions.openEditLocations();
 	};
 
 	const locationsToRender = loaded ? locations : [ {}, {}, {} ];
@@ -85,7 +81,7 @@ const ShippingZoneLocationList = ( { siteId, loaded, translate, locations, onCha
 			<ExtendedHeader
 				label={ translate( 'Zone locations' ) }
 				description={ translate( 'Add locations that you want to share shipping methods' ) } >
-				<Button onClick={ onAddLocation } disabled={ ! loaded } >{ translate( 'Add location' ) }</Button>
+				<Button onClick={ onAddLocation } disabled={ ! loaded } >{ translate( 'Edit locations' ) }</Button>
 			</ExtendedHeader>
 			<List>
 				<ListHeader>
@@ -98,7 +94,7 @@ const ShippingZoneLocationList = ( { siteId, loaded, translate, locations, onCha
 				</ListHeader>
 				{ locationsToRender.map( renderLocation ) }
 			</List>
-			<ShippingZoneLocationDialog siteId={ siteId } onChange={ onChange } isVisible={ loaded } />
+			<ShippingZoneLocationDialog siteId={ siteId } onChange={ onChange } />
 		</div>
 	);
 };
@@ -115,6 +111,7 @@ export default connect(
 	} ),
 	( dispatch, ownProps ) => ( {
 		actions: bindActionCreatorsWithSiteId( {
+			openEditLocations,
 		}, dispatch, ownProps.siteId ),
 	} )
 )( localize( ShippingZoneLocationList ) );
